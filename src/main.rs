@@ -1,16 +1,19 @@
 use dialoguer::{Confirm, Select};
 use console::{Term, style};
 
-fn main() {
+use crate::menu::menu_operation;
+
+mod utils;
+mod menu;
+mod types;
+mod consts;
+
+fn main() -> anyhow::Result<()> {
     let term = Term::stdout();
-    term.clear_screen().unwrap();
 
-    let choice = Select::new()
-        .with_prompt("Wybierz partycję")
-        .items(&["sda1", "sda2", "sda3"])
-        .default(0)
-        .interact()
-        .unwrap();
+    let operation = menu_operation(&term)?;
 
-    println!("{choice}");
+    println!("{operation:?}");
+
+    Ok(())
 }
